@@ -24,11 +24,11 @@ You'll need to set up a database.
 
     sudo apt-get update
     sudo apt-get install postgresql postgresql-contrib
-    # By default, Postgres tries to use a database user with the same username
-    # as you have logged into Ubuntu. I don't exactly remember how to do this.
-    # I think I end up fussing for a while every time I try. Something like...
-    postgres createuser
-    # Then I think you have to set the password
+    # OK, I admit I'm a bit hazy on the details of users in Postgres. I think
+    # by default it tries to use a database user with the same username as the
+    # Linux user, so in my case, it made sense to create a database user named
+    # dave and grant it permission on everything and use it to create the
+    # databases.
 
 Then go create a main/local_settings.py file and put something like this in it
 
