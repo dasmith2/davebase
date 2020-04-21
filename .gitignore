@@ -1,0 +1,7 @@
+.venv
+staticfiles
+db.sqlite3
+*.swp
+local_settings.py
+geckodriver.log
+__pycache__

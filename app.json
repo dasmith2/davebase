@@ -1,0 +1,22 @@
+{
+  "name": "Davebase",
+  "description": "A Django app that doesn't actually do anything, but comes with all the bells and whistles",
+  "image": "heroku/python",
+  "repository": "https://github.com/dasmith2/davebase.git",
+  "keywords": ["python", "django"],
+  "addons": ["heroku-postgresql"],
+  "env": {
+    "SECRET_TOKEN": "A secret key for verifying the integrity of signed cookies.",
+    "generator": "secret"
+  },
+  "environments": {
+    "test": {
+      "env": {
+        "IN_HEROKU_CI": "yep."
+      },
+      "scripts": {
+        "test": "./test.sh"
+      }
+    }
+  }
+}

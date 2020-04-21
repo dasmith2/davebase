@@ -1,0 +1,12 @@
+django
+requests
+gunicorn
+django-heroku
+ipython
+flake8
+djangorestframework
+psycopg2
+boto3
+pillow
+rq
+djavedt
