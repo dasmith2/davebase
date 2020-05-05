@@ -151,7 +151,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'djavError'
+    'djavError',
+    'djaveThread'
 ]
 
 if DEBUG:
