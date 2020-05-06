@@ -14,7 +14,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include(auth_urls)),
     path('js/this_site.js', this_site_js, name='this_site_js'),
-    path('', include(djaverror_urls),
+    path('', include(djaverror_urls)),
     path('', include(this_site_urls))
 ]
 
