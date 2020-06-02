@@ -17,6 +17,8 @@ STAGE = os.environ.get('STAGE', default='False') == 'True'
 PROD = os.environ.get('PROD', default='False') == 'True'
 TEST = 'test' in sys.argv
 RUNSERVER = 'runserver' in sys.argv
+GUNICORN = 'gunicorn' in sys.argv
+WEB = RUNSERVER or GUNICORN
 MANAGE_COMMAND_FINDER = re.compile(r'[^\w]*manage.py')
 MANAGE_COMMAND = any([MANAGE_COMMAND_FINDER.match(arg) for arg in sys.argv])
 SHELL = MANAGE_COMMAND and 'shell' in sys.argv
@@ -155,10 +157,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djaveAPI',
     'djavError',
+    'djaveLogin',
     'djaveReport',
     'djaveS3',
     'djaveThread'] + THIS_SITE_INSTALLED_APPS
+
+if TEST:
+  INSTALLED_APPS.append('djaveAPI.tests')
 
 if DEBUG:
   # I try to keep things out of requirements.txt that aren't necessary in the
@@ -185,7 +192,7 @@ if DEBUG:
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['main/templates'],
+        'DIRS': ['main/templates', 'djaveNav/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -222,6 +229,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',  # noqa: E501
     },
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'djaveLogin.authentication_backend.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend']
 
 
 """ Internationalization. """
