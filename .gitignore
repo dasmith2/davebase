@@ -1,6 +1,9 @@
-.venv
 collected_static_files
-*.swp
-local_settings.py
+db.sqlite3
 geckodriver.log
+local_settings.py
 __pycache__
+staticfiles
+*.swp
+.venv
+mount.sh

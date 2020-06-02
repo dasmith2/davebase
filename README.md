@@ -1,38 +1,3 @@
-# The most important thing
-
-tl;dr; Clarity.
-
-I want to move quickly. I want to spin up new surprisingly functional sites
-fast. There's no silver bullet or shortcut there. I think in the end it's all
-about the fundamentals.
-
-The code has to make perfect sense. When you want to do something, you should
-be able to guess where exactly you need to go to fix the problem without even
-listing any files or anything.
-
-You have to name everything consistently. It's no good putting the EnterTime
-class in time_entry.py
-
-Don't get fancy in any particular file. Don't be lumping thousands of lines of
-features in a single file. Each file is a beautiful snowflake that, if
-anything, is a little underwhelming. Of course this is an art form, and depends
-heavily on good old fashioned encapsulation. When you write code, you're
-describing abstractions, and ideally those abstractions should make perfect
-sense. They should perfectly describe the world. They should be useful. They
-should be exquisitly crafted for use cases. Perfectly abstracted code is a joy
-to work with.
-
-Pay attention to how confused you feel. If you're confused, it's not your
-fault, it's the code's fault. Whatever questions you can think of, the code
-should answer in a straightforward manner.
-
-Commenting is an art form. When you feel a need to comment WHAT you're doing,
-that's a red flag that your code is confusing. But you most certainly should
-comment WHY you're doing it that way. If some bug caused you to tweak the code,
-but you don't document the story nearby, you're liable to forget why you did it
-that way and switch it to something "better" which is just the old system, and
-re-introduce the bug.
-
 # Setting up a new website
 
 This is my starting point for new Django projects on Heroku
@@ -53,7 +18,6 @@ You'll need to make some changes.
 
 1. Update the name, description, and repository in app.json
 1. Create a main/local_settings.py file
-1. You can delete the example app entirely
 
 You'll need to set up a database.
 
@@ -86,6 +50,26 @@ Then go create a main/local_settings.py file and put something like this in it
     # github. At first though, you'll have to manually deploy. There's a button
     # for that somewhere. Then you can...
     heroku run python manage.py createsuperuser -a whatever-stage
+
+# Developing libraries
+
+The libraries will ideally stabilize and just sit on PyPI. But while I'm still
+actively developing them I don't want to push to PyPI as part of local
+development. So for now I'm removing djaveS3, say, from requirements.txt and
+simply checking the djaveS3 source directly into my projects thusly:
+
+    cd davidsmith7
+    mkdir djaveS3
+    sudo mount --bind ../djaveS3/djaveS3 djaveS3
+
+Then when everything stabilizes, you deploy djaveS3 to PyPI, add djaveS3 to
+requirements.txt, and
+
+    umount djaveS3
+
+I found out about this technique from
+
+https://stackoverflow.com/questions/86402/how-can-i-get-git-to-follow-symlinks
 
 # CSS, Javascript, and Django templates
 
@@ -164,18 +148,3 @@ my_specific_page.html should inherit from my_specific_section.html
 
 If the css is specifically for a particular widget, just inline the styles
 immediately above the widget in the template for the widget.
-
-# Developing libraries
-
-The libraries will ideally stabilize and just sit on PyPI. But while I'm still
-actively developing them I don't want to push to PyPI as part of local
-development. So for now I'm removing djaveS3, say, from requirements.txt and
-simply checking the djaveS3 source directly into my projects thusly:
-
-cd davidsmith7
-mkdir djaveS3
-sudo mount --bind ../djaveS3/djaveS3 djaveS3
-
-I found out about this technique from
-
-https://stackoverflow.com/questions/86402/how-can-i-get-git-to-follow-symlinks

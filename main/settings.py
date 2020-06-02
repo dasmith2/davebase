@@ -146,6 +146,10 @@ if (PROD or STAGE) and SECRET_KEY == DEFAULT_SECRET_KEY:
       'Set the SECRET_KEY environment variable to a long random string')
 
 
+""" API stuff """
+API_KEY_TYPES = ['djaveAPI.models.user_api_key.UserAPIKey']
+
+
 """ Telling Django about packages. Don't put site specific packages here. Put
 them in THIS_SITE_INSTALLED_APPS in main/this_site_installed_apps.py """
 from main.this_site_installed_apps import THIS_SITE_INSTALLED_APPS
@@ -164,8 +168,12 @@ INSTALLED_APPS = [
     'djaveS3',
     'djaveThread'] + THIS_SITE_INSTALLED_APPS
 
-if TEST:
-  INSTALLED_APPS.append('djaveAPI.tests')
+# Whichever of these test classes reference django.contrib.auth.User need
+# explicit migrations to work. I did that by uncommenting "if TEST:" here,
+# briefly creating for example djaveAPI/tests/migrations, configuring
+# djaveAPI/tests/apps.py, then ./manage.py makemigrations
+if TEST or IN_HEROKU_CI:
+  INSTALLED_APPS.append('djaveAPI.tests.apps.DjaveAPITestsConfig')
 
 if DEBUG:
   # I try to keep things out of requirements.txt that aren't necessary in the
